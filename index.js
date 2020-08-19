@@ -1,7 +1,13 @@
 const express = require('express');
 
+//conectar BD
+const conectarDB = require('./config/db');
+
 //crear el servidor
 const app = express();
+
+//Conectar BD. ¡NO OLVIDAR REINICIAR EL SERVIDOR CUANDO SE CONECTA POR PRIMERA VEZ!!!
+conectarDB();
 
 //puertos de la app; process.env.PORT es de Heroku
 const PORT = process.env.PORT || 4000;
