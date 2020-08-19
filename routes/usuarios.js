@@ -2,12 +2,17 @@
 
 const express = require('express');
 const router = express.Router();
+const usuarioController = require('../controllers/usuarioController');
 
 //Crea un usuario
-//hacia URL api/usuarios
+//api/usuarios es la URL general configurada en index
 
-router.post('/', ()=>{
 
-});
+//se llama en POSTMAN con http://localhost:4000/api/usuarios
+
+
+router.post('/',
+    usuarioController.crearUsuario
+);
 
 module.exports = router; //para q este disponible en index.cl
