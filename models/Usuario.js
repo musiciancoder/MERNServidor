@@ -1,3 +1,5 @@
+//MODELO Usuario
+
 const mongoose = require('mongoose');
 
 //con .Schema se define la configuracion de usuarios
