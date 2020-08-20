@@ -1,4 +1,4 @@
-
+const bcryptjs = require('bcryptjs');
 
 const Usuario = require('../models/Usuario');
 
@@ -24,7 +24,12 @@ exports.crearUsuario = async (req, res) => {
         }
 
         //crear el nuevo usuario
-        usuario = new Usuario(req.body);//argumentos desde en el body
+        usuario = new Usuario(req.body );//argumentos desde en el body
+
+        //Hashear el password
+        const salt = await bcryptjs.genSalt(10);
+        usuario.password = await bcryptjs.hash(password, salt);
+
 
         //guardar usuario en BBDD de mongo
         await usuario.save();
