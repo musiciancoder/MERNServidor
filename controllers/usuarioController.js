@@ -11,8 +11,17 @@ exports.crearUsuario = async (req, res) => {
     //  console.log('desde crearUsuario');
     //Para probar en Postman con http://localhost:4000/api/usuarios siempre se hace con  console.log(req.body); en los Headers de Postman ademas se debe escribir Content-Type appilcation/json. No olvidar ademas la linea app.use(express.json({extended: true})); en index.js
 
+    //Extraer email y password del body
+    const {email, password} = req.body;
+
     try {
-        let usuario;
+
+        //Revisar q el usuario q se registra sea unico
+        let usuario = await Usuario.findOne({email});// con metodo findOne se busca en la BBDD si hay un usuario con ese email ya creado
+
+        if(usuario){
+            return res.status(400).json({ msg: 'El usuario ya existe'});
+        }
 
         //crear el nuevo usuario
         usuario = new Usuario(req.body);//argumentos desde en el body
@@ -21,7 +30,7 @@ exports.crearUsuario = async (req, res) => {
         await usuario.save();
 
         //Mensaje de confirmacion
-        res.send('Usuario creado correctamente');
+        res.json({msg: 'Usuario creado correctamente'});
     } catch (error) {
         console.log(error);
         res.status(400).send('Hubo un error');
