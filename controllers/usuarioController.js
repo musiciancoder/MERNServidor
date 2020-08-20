@@ -1,5 +1,5 @@
 const bcryptjs = require('bcryptjs');
-
+const {validationResult} = require('express-validator');
 const Usuario = require('../models/Usuario');
 
 //Con esto podemos insertar usuarios en el compass de Mongo. Lo prueba enviando el usuario {
@@ -11,6 +11,13 @@ exports.crearUsuario = async (req, res) => {
     //  console.log('desde crearUsuario');
     //Para probar en Postman con http://localhost:4000/api/usuarios siempre se hace con  console.log(req.body); en los Headers de Postman ademas se debe escribir Content-Type appilcation/json. No olvidar ademas la linea app.use(express.json({extended: true})); en index.js
 
+    //revisar si hay errores de validacion
+    const errores = validationResult(req); //obtiene los errores de los check en usuarios.js
+    if(!errores.isEmpty()){
+        return res.status(400).json({errores: errores.array()});
+    }
+
+
     //Extraer email y password del body
     const {email, password} = req.body;
 
@@ -19,12 +26,12 @@ exports.crearUsuario = async (req, res) => {
         //Revisar q el usuario q se registra sea unico
         let usuario = await Usuario.findOne({email});// con metodo findOne se busca en la BBDD si hay un usuario con ese email ya creado
 
-        if(usuario){
-            return res.status(400).json({ msg: 'El usuario ya existe'});
+        if (usuario) {
+            return res.status(400).json({msg: 'El usuario ya existe'});
         }
 
         //crear el nuevo usuario
-        usuario = new Usuario(req.body );//argumentos desde en el body
+        usuario = new Usuario(req.body);//argumentos desde en el body
 
         //Hashear el password
         const salt = await bcryptjs.genSalt(10);
