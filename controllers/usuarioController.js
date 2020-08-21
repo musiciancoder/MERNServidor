@@ -48,6 +48,7 @@ exports.crearUsuario = async (req, res) => {
         // Crear y firmar el JWT
         const payload = {
             usuario: {
+                //TODO de donde sale usuario.id
                 id: usuario.id //id del usuario que se está guardando
             }
         };
