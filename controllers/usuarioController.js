@@ -1,6 +1,8 @@
 const bcryptjs = require('bcryptjs');
 const {validationResult} = require('express-validator');
 const Usuario = require('../models/Usuario');
+const jwt = require('jsonwebtoken');
+
 
 //Con esto podemos insertar usuarios en el compass de Mongo. Lo prueba enviando el usuario {
 //    "nombre":"juan",
@@ -22,27 +24,44 @@ exports.crearUsuario = async (req, res) => {
     const {email, password} = req.body;
 
     try {
+        // Revisar que el usuario registrado sea unico
+        let usuario = await Usuario.findOne({ email });
 
-        //Revisar q el usuario q se registra sea unico
-        let usuario = await Usuario.findOne({email});// con metodo findOne se busca en la BBDD si hay un usuario con ese email ya creado
-
-        if (usuario) {
-            return res.status(400).json({msg: 'El usuario ya existe'});
+        if(usuario) {
+            return res.status(400).json({ msg: 'El usuario ya existe' });
         }
 
-        //crear el nuevo usuario
-        usuario = new Usuario(req.body);//argumentos desde en el body
+        // crea el nuevo usuario
+        usuario = new Usuario(req.body);
 
-        //Hashear el password
+        // Hashear el password
         const salt = await bcryptjs.genSalt(10);
-        usuario.password = await bcryptjs.hash(password, salt);
+        usuario.password = await bcryptjs.hash(password, salt );
 
-
-        //guardar usuario en BBDD de mongo
+        // guardar usuario
         await usuario.save();
 
-        //Mensaje de confirmacion
-        res.json({msg: 'Usuario creado correctamente'});
+        //JWT Tiene headers, payload (genermente id del usuario) y firma (que damos con variable de entorno (en nuestro caso SECRETA))
+
+        // Crear y firmar el JWT
+        const payload = {
+            usuario: {
+                id: usuario.id //id del usuario que se está guardando
+            }
+        };
+
+        // firmar el JWT
+        jwt.sign(payload, process.env.SECRETA, {
+            expiresIn: 3600 // 1 hora
+        }, (error, token) => {
+            if(error) throw error;
+
+            // Mensaje de confirmación
+           // res.json({msg: 'Token creado con exito'});
+            res.json({ token });
+        });
+
+
     } catch (error) {
         console.log(error);
         res.status(400).send('Hubo un error');
