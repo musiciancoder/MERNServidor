@@ -1,3 +1,5 @@
+//REGISTRAR USUARIO
+
 const bcryptjs = require('bcryptjs');
 const {validationResult} = require('express-validator');
 const Usuario = require('../models/Usuario');
@@ -60,7 +62,6 @@ exports.crearUsuario = async (req, res) => {
            // res.json({msg: 'Token creado con exito'});
             res.json({ token });
         });
-
 
     } catch (error) {
         console.log(error);

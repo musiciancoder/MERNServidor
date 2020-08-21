@@ -21,6 +21,7 @@ router.post('/',  //argumentos = donde, validacion, respuesta manejada por el co
 
     ],
 
+    authController.autenticarUsuario
 );
 
 module.exports = router; //para q este disponible en index.cl
