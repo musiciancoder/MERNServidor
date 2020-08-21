@@ -15,8 +15,10 @@ app.use(express.json({extended: true}));
 //puertos de la app; process.env.PORT es de Heroku
 const PORT = process.env.PORT || 4000;
 
-//importar rutas. Esto relaciona las URL con respectivos modulos
+//importar rutas. Esto relaciona las URL con respectivos modulos de rutas
+//EL INDEX RECIBE LA PETICION, LO MANDA AL ARCHIVO DE RUTA (usuarios.js, auth.js, etc) Y EL ARCHIVO DE RUTA LLAMA AL CONTROLADOR QUE DÁ LA RESPUESTA
 app.use('/api/usuarios', require('./routes/usuarios')); //api se usa como ruta general
+app.use('/api/auth', require('./routes/auth'));
 
 /*//Definir la pagina principal (prueba al principio)
 app.get('/',(req,res)=>{
