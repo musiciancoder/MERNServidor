@@ -19,6 +19,7 @@ const PORT = process.env.PORT || 4000;
 //EL INDEX RECIBE LA PETICION, LO MANDA AL ARCHIVO DE RUTA (usuarios.js, auth.js, etc) Y EL ARCHIVO DE RUTA LLAMA AL CONTROLADOR QUE DÁ LA RESPUESTA
 app.use('/api/usuarios', require('./routes/usuarios')); //api se usa como ruta general
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/proyectos', require('./routes/proyectos'));
 
 /*//Definir la pagina principal (prueba al principio)
 app.get('/',(req,res)=>{

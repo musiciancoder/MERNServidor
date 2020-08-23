@@ -1,8 +1,4 @@
-//MODELO DE PROYECTO
-
 const mongoose = require('mongoose');
-
-
 
 const ProyectoSchema = mongoose.Schema({
     nombre: {
@@ -11,11 +7,13 @@ const ProyectoSchema = mongoose.Schema({
         trim: true
     },
     creador: {
-        type: mongoose.Schema.Types.ObjectId, //este va a ser el _id en Mongo
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario'
     },
     creado: {
         type: Date,
         default: Date.now()
     }
-})
+});
+
+module.exports = mongoose.model('Proyecto', ProyectoSchema);
