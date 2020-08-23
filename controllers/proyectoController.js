@@ -4,9 +4,13 @@ exports.crearProyecto = async (req,res)=>{
 
     try {
         //Crear nuevo proyecto
-        const proyecto = new Proyecto(req.body);
+        const proyecto = new Proyecto(req.body);  //En postman se llama solo con nombre en el body
 
-        //Guardar proyecto en BBDD
+        //Guardar creador del proyecto via JWT
+        proyecto.creador = req.usuario.id; //req.usuario del middleware auth.js
+
+
+       //guardamos el proyecto
         proyecto.save();
         res.json(proyecto);
 
