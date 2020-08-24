@@ -30,5 +30,14 @@ router.put('/:id',
     proyectoController.actualizarProyecto
     );
 
+//Eliminar un proyecto
+router.delete('/:id',
+    auth,  //Este es un middleare (se ejecuta antes de llegar al controlador) Archivo middleware/auth.js. Verifica que en el header vaya x-auth-token
+
+
+    proyectoController.eliminarProyecto
+
+)
+
 
 module.exports = router;
