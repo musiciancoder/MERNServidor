@@ -1,5 +1,7 @@
 //REGISTRAR USUARIO
 
+//OJO, EN POSTMAN ES UN TOKEN PARA CREAR USUARIO Y CON ESTE TOKEN SE USA PARA AUTENTICAR ESE USAUARIO, ESTO GENERA OTRO TOKEN Q SE USA PARA CREAR PROYECTOS. SON 2 TOKENS!!
+
 const bcryptjs = require('bcryptjs');
 const {validationResult} = require('express-validator');
 const Usuario = require('../models/Usuario');
