@@ -26,5 +26,17 @@ exports.crearProyecto = async (req,res)=>{
         res.status(500).send('Hubo un error');
     }
 
+}
 
+//Obtener todos los proyectos del usuario actual
+
+exports.obtenerProyectos  = async (req,res) => {
+    try {
+        //console.log(req.usuario);
+        const proyectos = await Proyecto.find({ creador:req.usuario.id }).sort({ creado:-1 }); //devuelve todos. creador es propiedad de Proyecto definida en el modelo y req.usuario.id es el id del usuario que ya esta autenticado previamente
+        res.json({ proyectos });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
+    }
 }

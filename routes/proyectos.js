@@ -16,7 +16,7 @@ router.post('/', //se prueba en Postman
 
 router.get('/', //se prueba en browser con http://localhost:4000/api/proyectos
     auth,
-    proyectoController.crearProyecto
+    proyectoController.obtenerProyectos
     )
 
 module.exports = router;
