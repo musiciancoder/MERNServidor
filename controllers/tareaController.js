@@ -38,3 +38,30 @@ exports.crearTarea = async (req, res) => {
     }
 
 }
+
+//Obtiene las tareas por poryecto.
+exports.obtenerTareas = async (req,res) => {
+
+    try { // Extraer el proyecto y comprobar si existe
+        const {proyecto} = req.body; //en el body va solo el id del proyecto. ej: "proyecto":"5f4430cbb27dd535e8eeec12"
+
+        const existeProyecto = await Proyecto.findById(proyecto);
+        if (!existeProyecto) {
+            return res.status(404).json({msg: 'Proyecto no encontrado'})
+        }
+
+        // Revisar si el proyecto actual pertenece al usuario autenticado
+        if (existeProyecto.creador.toString() !== req.usuario.id) {
+            return res.status(401).json({msg: 'No Autorizado'});
+        }
+
+        //Obtener las tareas de ese proyecto
+        const tareas = await Tarea.find({proyecto}); //Busqueda por id del proyecto porque proyecto lo definimos como propiedad de tarea en el modelo de tarea
+        res.json({ tareas });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
+    }
+
+}

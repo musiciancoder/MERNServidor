@@ -7,7 +7,7 @@ const ProyectoSchema = mongoose.Schema({
         trim: true
     },
     creador: {
-        type: mongoose.Schema.Types.ObjectId, //es el id, se ve en la respuesta de POSTMAN
+        type: mongoose.Schema.Types.ObjectId, //El proyecto pertenece a un usuario;es el id, se ve en la respuesta de POSTMAN
         ref: 'Usuario'
     },
     creado: {

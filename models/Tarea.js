@@ -15,7 +15,7 @@ const TareaSchema = mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    proyecto: { //el proyecto al que pertenece
+    proyecto: { //la tarea pertenece a un proyecto
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Proyecto'
     }
