@@ -73,7 +73,7 @@ exports.actualizarTarea = async (req, res ) => {
 
 
         // Si la tarea existe o no
-        let tarea = await Tarea.findById(req.params.id);
+        let tarea = await Tarea.findById(req.params.id); //porque en el route de tareas pusomos :/put
 
         if(!tarea) {
             return res.status(404).json({msg: 'No existe esa tarea'});
@@ -107,10 +107,10 @@ exports.actualizarTarea = async (req, res ) => {
 exports.eliminarTarea = async (req, res) => {
     try {
         // Extraer el proyecto y comprobar si existe
-        const { proyecto  } = req.body;
+        const { proyecto  } = req.query;
 
         // Si la tarea existe o no
-        let tarea = await Tarea.findById(req.params.id); //Porque en el roue de tareas pusimos /:id
+        let tarea = await Tarea.findById(req.params.id);
 
         if(!tarea) {
             return res.status(404).json({msg: 'No existe esa tarea'});
@@ -133,4 +133,3 @@ exports.eliminarTarea = async (req, res) => {
         res.status(500).send('Hubo un error')
     }
 }
-
