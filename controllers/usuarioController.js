@@ -63,7 +63,7 @@ exports.crearUsuario = async (req, res) => {
 
             // Mensaje de confirmación
            // res.json({msg: 'Token creado con exito'});
-            res.json({ token });
+            res.json({ token }); // en el frontend en authState.js console.log(respuesta);
         });
 
     } catch (error) {

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 //conectar BD
 const conectarDB = require('./config/db');
@@ -8,6 +9,9 @@ const app = express();
 
 //Conectar BD. ¡NO OLVIDAR REINICIAR EL SERVIDOR CUANDO SE CONECTA POR PRIMERA VEZ!!!
 conectarDB();
+
+//habilitar cors
+app.use(cors());
 
 //Habilirar express.json. Se utiliza en vez de body.parser. Con esto se puede enviar body en postman
 app.use(express.json({extended: true}));
