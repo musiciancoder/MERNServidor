@@ -14,8 +14,9 @@ const authController = require('../controllers/authController');
 router.post('/',  //argumentos = donde, validacion, respuesta manejada por el conrolador
     [
         //CHEQUEOS ANTES DE ENVIAR (VALIDACION)
-        check('email','Agrega un email válido').isEmail(),
-        check('password','El password debe ser minimo de 6 caracteres').isLength({min:6})
+      //  Eliminó los dos check siguientes porque React se va encargar de esas validaciones
+       // check('email','Agrega un email válido').isEmail(),
+       // check('password','El password debe ser minimo de 6 caracteres').isLength({min:6})
 
     ],
 
