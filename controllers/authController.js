@@ -30,7 +30,7 @@ exports.autenticarUsuario  = async (req,res) => {
             return res.status(400).json({ msg: 'Password incorrecto' });
         }
 
-        // Si todo es correcto crear y firmar el JWT
+        // Si tod es correcto crear y firmar el JWT
         const payload = {
             usuario: {
                 id: usuario.id //id del usuario que se está guardando
